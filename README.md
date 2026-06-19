@@ -276,7 +276,6 @@ Clone the repository:
 
 ```bash
 git clone <repository-url>
-cd traffic-intelligence-system
 ```
 
 Install dependencies:
