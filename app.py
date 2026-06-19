@@ -1269,51 +1269,6 @@ elif page == "🛡️  Resource Planner":
     </div>
     """, unsafe_allow_html=True)
 
-    # ===== OPERATIONAL FACTORS DISPLAY =====
-    sec("Operational Factors Applied")
-
-    factor_active = {
-        "Peak Hour": peak_hour_active,
-        "Road Closure": road_closure_required,
-        "High Junction Risk (>80)": junction_risk_value > 80,
-        "Elevated Junction Risk (>60)": 60 < junction_risk_value <= 80,
-        "High Zone Risk (>70)": zone_risk_value > 70,
-        "Elevated Zone Risk (>50)": 50 < zone_risk_value <= 70,
-        "Historical Similarity (>30 events)": similar_count > 30,
-        "Moderate Similarity (>15 events)": 15 < similar_count <= 30,
-        "Historical High Impact (>75)": similar_avg_impact > 75,
-        "Historical Elevated Impact (>60)": 60 < similar_avg_impact <= 75,
-    }
-
-    factor_boosts = {
-        "Peak Hour": "👮 +2 officers, 🚔 +1 patrol, 🚧 +2 barricades",
-        "Road Closure": "🚧 +5 barricades, 👮 +2 officers, 🚔 +1 patrol",
-        "High Junction Risk (>80)": "👮 +2 officers, 🚧 +2 barricades",
-        "Elevated Junction Risk (>60)": "👮 +1 officer, 🚧 +1 barricade",
-        "High Zone Risk (>70)": "🚔 +1 patrol, 👮 +1 officer",
-        "Elevated Zone Risk (>50)": "🚔 +1 patrol",
-        "Historical Similarity (>30 events)": "👮 +1 officer, 🚔 +1 patrol",
-        "Moderate Similarity (>15 events)": "👮 +1 officer",
-        "Historical High Impact (>75)": "🚑 +1 ambulance, 🆘 +1 emergency team",
-        "Historical Elevated Impact (>60)": "🚑 +1 ambulance",
-    }
-
-    factor_html = '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;">'
-    active_count = 0
-    for factor, active in factor_active.items():
-        if active:
-            active_count += 1
-            boost = factor_boosts.get(factor, "")
-            factor_html += f"""
-            <div class="op-factor-box" style="border-left:3px solid #D85A30;">
-                <span class="factor-label">✅ {factor}</span>
-                <span class="factor-boost-active">→ {boost}</span>
-            </div>
-            """
-    if active_count == 0:
-        factor_html += '<div class="op-factor-box" style="border-left:3px solid #9CA3AF;">No additional operational factors active — standard deployment</div>'
-    factor_html += '</div>'
-    st.markdown(factor_html, unsafe_allow_html=True)
 
     # ===== RESOURCE SCORE GAUGE + TIER BANDS =====
     sec("Resource Score & Deployment Tier")
